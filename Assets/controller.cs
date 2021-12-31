@@ -10,13 +10,21 @@ public class controller : MonoBehaviour {
     float speed = 1;
     [SerializeField]
     float jumpSpeed = 1;
+    [SerializeField]
+    float throwForce = 5;
     bool iJustJumped = false;
     bool grounded = true;
     float groundslope = 0f;
     Onkiminen onki;
     public GameObject koukku;
+    public GameObject ThrowableDebug;
     [SerializeField]
     float dragValue = 0.00000001f;
+    string facing = "left";
+    public bool carryingThrowableThing = false;
+    public GameObject throwableTrash;
+
+    float throwDebugCd = 0f;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -38,17 +46,21 @@ public class controller : MonoBehaviour {
 
     void KeyboardInputs() {
         bool noInput = true;
-        if(Input.GetKey(KeyCode.E)) {
+        if(Input.GetKey(KeyCode.E) && !carryingThrowableThing) {
             Ongi();
             return; //laita vielä joku stoppi tähän
         }
+        ThrowingDebug();
+        ThrowActual();
         if(Input.GetKey(KeyCode.A)) {
             rb.AddForce(Vector3.right*-speed, ForceMode.Impulse);
             noInput = false;
+            facing = "left";
         }
         if(Input.GetKey(KeyCode.D)) {
             rb.AddForce(Vector3.left*-speed, ForceMode.Impulse);
             noInput = false;
+            facing = "right";
         }
         if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) 
             && grounded && !iJustJumped) {
@@ -59,6 +71,38 @@ public class controller : MonoBehaviour {
             CustomDrag();
         }
         
+    }
+    
+    void ThrowActual() {
+        if(carryingThrowableThing && Input.GetKeyDown(KeyCode.R)) {
+            carryingThrowableThing = false;
+            //Rigidbody rbod = throwableTrash.GetComponent<Rigidbody>();
+            throwableTrash.GetComponent<throwable>().inAir = true;
+            Rigidbody ttrb= throwableTrash.AddComponent<Rigidbody>();
+            Destroy(throwableTrash.GetComponent<trash_code>());
+            if(facing == "left") {
+                ttrb.AddForce(Vector3.left*throwForce, ForceMode.Impulse);
+            } else {
+                ttrb.AddForce(Vector3.right*throwForce, ForceMode.Impulse);
+            }
+        }
+    }
+
+    void ThrowingDebug() {
+        throwDebugCd += Time.deltaTime;
+        if(throwDebugCd > 1f && Input.GetKeyDown(KeyCode.G)) {
+            Vector3 pos = transform.position;
+            pos.y +=3f;
+            var thr = Instantiate(ThrowableDebug, pos, Quaternion.identity);
+            Rigidbody rbod = thr.GetComponent<throwable>().GetRb();
+            thr.GetComponent<throwable>().inAir = true;
+            if(facing == "left") {
+                rbod.AddForce(Vector3.left*throwForce, ForceMode.Impulse);
+            } else {
+                rbod.AddForce(Vector3.right*throwForce, ForceMode.Impulse);
+            }
+            throwDebugCd = 0f;
+        } 
     }
 
     IEnumerator IJustJumpedOhNo() {
@@ -107,4 +151,5 @@ public class controller : MonoBehaviour {
             }
         }
     }
+    
 }

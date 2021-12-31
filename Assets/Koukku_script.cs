@@ -46,13 +46,26 @@ public class Koukku_script : MonoBehaviour {
         }
     }
 
+    /*Koukku kohtaa pelaajan
+    koukku poistetaan olevaisuudesta
+    koukun saamat roskat annetaan pelaajalle
+    */
     void WowAmIDead() {
         if(returning) {
             Vector3 parentPos =  gameObject.transform.parent.position;
             if(Vector3.Distance(parentPos, transform.position)<1) {
                 if(hasHaul) {
-                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     print("myhaul: "+haul);
+                    controller cont = transform.parent.gameObject.GetComponent<controller>();
+                    cont.carryingThrowableThing = true;
+                    cont.throwableTrash = haul;
+                    //haul.GetComponent<Rigidbody>().isKinematic = true;
+                    haul.transform.parent = transform.parent;
+                    haul.GetComponent<trash_code>().enabled = false;
+                    haul.GetComponent<throwable>().enabled = true;
+                    Vector3 pos = transform.parent.position;
+                    pos.y += 3f;
+                    haul.transform.position = pos;
                 }
                 Destroy(gameObject);
             }
