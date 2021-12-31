@@ -8,7 +8,9 @@ public class Koukku_script : MonoBehaviour {
     float y_speed = 0.1f;
     [SerializeField]
     float accpt_dist = 30f;
-    bool returning = false;
+    public bool returning = false;
+    public GameObject haul;
+    public bool hasHaul = false;
 
     void Start() {
         
@@ -48,8 +50,11 @@ public class Koukku_script : MonoBehaviour {
         if(returning) {
             Vector3 parentPos =  gameObject.transform.parent.position;
             if(Vector3.Distance(parentPos, transform.position)<1) {
+                if(hasHaul) {
+                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    print("myhaul: "+haul);
+                }
                 Destroy(gameObject);
-                print("KILL");
             }
         }
     }
