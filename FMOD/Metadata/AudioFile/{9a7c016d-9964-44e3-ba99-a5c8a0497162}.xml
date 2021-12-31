@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{9a7c016d-9964-44e3-ba99-a5c8a0497162}">
+		<property name="assetPath">
+			<value>Alkuosio 90BPM - Aperture Strings.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>90.666689342403629</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c40b98-fab8-4340-9e07-91428b0e2872}</destination>
+		</relationship>
+	</object>
+</objects>
