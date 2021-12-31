@@ -6,17 +6,14 @@ using UnityEngine;
 public class controller : MonoBehaviour {
 
     Rigidbody rb;
-    [SerializeField]
-    float speed = 1;
-    [SerializeField]
-    float jumpSpeed = 1;
+    [SerializeField] float speed = 1;
+    [SerializeField] float jumpSpeed = 1;
     bool iJustJumped = false;
     bool grounded = true;
     float groundslope = 0f;
     Onkiminen onki;
     public GameObject koukku;
-    [SerializeField]
-    float dragValue = 0.00000001f;
+    [SerializeField] float dragValue = 0.00000001f;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -37,6 +34,7 @@ public class controller : MonoBehaviour {
     }
 
     void KeyboardInputs() {
+        Animationsmockup();
         bool noInput = true;
         if(Input.GetKey(KeyCode.E)) {
             Ongi();
@@ -45,10 +43,12 @@ public class controller : MonoBehaviour {
         if(Input.GetKey(KeyCode.A)) {
             rb.AddForce(Vector3.right*-speed, ForceMode.Impulse);
             noInput = false;
+            OravaAnimations.current.RotatePlayer(Vector3.left);
         }
         if(Input.GetKey(KeyCode.D)) {
             rb.AddForce(Vector3.left*-speed, ForceMode.Impulse);
             noInput = false;
+            OravaAnimations.current.RotatePlayer(Vector3.right);
         }
         if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) 
             && grounded && !iJustJumped) {
@@ -105,6 +105,27 @@ public class controller : MonoBehaviour {
             if (!iJustJumped) {
                 groundslope = Vector3.Dot(Vector3.up, c.normal);
             }
+        }
+    }
+
+    void Animationsmockup() {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            OravaAnimations.current.PlayCarry();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            OravaAnimations.current.PlayDeath();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            OravaAnimations.current.PlayFishing();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            OravaAnimations.current.PlayIdle();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {
+            OravaAnimations.current.PlayJump();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6)) {
+            OravaAnimations.current.PlayWalk();
         }
     }
 }
