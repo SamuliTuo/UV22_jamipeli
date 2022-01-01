@@ -76,12 +76,14 @@ public class controller : MonoBehaviour {
     void ThrowActual() {
         if(carryingThrowableThing && Input.GetKeyDown(KeyCode.R)) {
             carryingThrowableThing = false;
-            //Rigidbody rbod = throwableTrash.GetComponent<Rigidbody>();
+            //Rigidbody ttrb = throwableTrash.GetComponent<Rigidbody>();
+            //ttrb.useGravity = true;
             throwableTrash.GetComponent<throwable>().inAir = true;
             Rigidbody ttrb= throwableTrash.AddComponent<Rigidbody>();
             Destroy(throwableTrash.GetComponent<trash_code>());
             if(facing == "left") {
                 ttrb.AddForce(Vector3.left*throwForce, ForceMode.Impulse);
+                //add torque kääntää
             } else {
                 ttrb.AddForce(Vector3.right*throwForce, ForceMode.Impulse);
             }
