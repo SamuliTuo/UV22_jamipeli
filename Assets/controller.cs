@@ -21,7 +21,7 @@ public class controller : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         KeyboardInputs();
         GroundCheck(groundslope);
     }
@@ -41,16 +41,16 @@ public class controller : MonoBehaviour {
             return; //laita vielä joku stoppi tähän
         }
         if(Input.GetKey(KeyCode.A)) {
-            rb.AddForce(Vector3.right*-speed, ForceMode.Impulse);
+            rb.AddForce(Vector3.left * speed, ForceMode.Impulse);
             noInput = false;
             OravaAnimations.current.RotatePlayer(Vector3.left);
         }
         if(Input.GetKey(KeyCode.D)) {
-            rb.AddForce(Vector3.left*-speed, ForceMode.Impulse);
+            rb.AddForce(Vector3.right * speed, ForceMode.Impulse);
             noInput = false;
             OravaAnimations.current.RotatePlayer(Vector3.right);
         }
-        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) 
+        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
             && grounded && !iJustJumped) {
             Jump();
             noInput = false;
@@ -58,7 +58,7 @@ public class controller : MonoBehaviour {
         if(noInput) {
             CustomDrag();
         }
-        
+
     }
 
     IEnumerator IJustJumpedOhNo() {
@@ -87,7 +87,7 @@ public class controller : MonoBehaviour {
             Vector3 pos = gameObject.transform.position;
             GameObject kouk = Instantiate(koukku, pos, Quaternion.identity);
             kouk.transform.parent = this.transform;
-        } 
+        }
     }
 
     bool KoukkuActive() {
