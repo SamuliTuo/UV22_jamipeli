@@ -8,9 +8,14 @@ public class parcon : MonoBehaviour {
     GameObject tausta;
     GameObject vesi2;
     GameObject tausta2;
+    GameObject sieni1;
+    GameObject sieni2;
     [SerializeField] float vesiMovementKerroin = 0.1f;
     [SerializeField] float taustaMovementKerroin = 0.1f;
+    [SerializeField] float sieniKerroin = 0.13f;
     List<GameObject> taustat = new List<GameObject>();
+    List<GameObject> vedet = new List<GameObject>();
+    List<GameObject> sienet = new List<GameObject>();
 
     void Start() {
         vesi = transform.GetChild(1).gameObject;
@@ -19,20 +24,42 @@ public class parcon : MonoBehaviour {
         tausta2 = transform.GetChild(2).gameObject;
         taustat.Add(tausta);
         taustat.Add(tausta2);
+        vedet.Add(vesi);
+        vedet.Add(vesi2);
+        sieni1 = transform.GetChild(4).gameObject;
+        sieni2 = transform.GetChild(5).gameObject;
+        sienet.Add(sieni1);
+        sienet.Add(sieni2);
     }
 
     void FixedUpdate() {
         VesiMovement();
         TaustaMovement();
         TaustaMover();
+        VesiMover();
     }
 
     void VesiMover() {
-        
+        foreach(GameObject v in vedet) {
+            if(v.transform.position.x >= 75) {
+                float width = v.GetComponent<MeshFilter>().mesh.bounds.extents.x;
+                width = width * v.transform.localScale.x * 2;
+                v.transform.position -= new Vector3(width*2f, 0, 0);
+            }
+        }
+    }
+
+    void SieniMover() {
+        foreach(GameObject s in sienet) {
+            if(s.transform.position.x <= 10000) {
+                float width = s.GetComponent<MeshFilter>().mesh.bounds.extents.x;
+                width = width * s.transform.localScale.x * 2;
+                s.transform.position += new Vector3(width*2f, 0, 0);
+            }
+        }
     }
 
     void TaustaMover() {
-        //if pos = Vector3(-69,-12,-5.29409981) -> move
         foreach(GameObject t in taustat) {
             if(t.transform.position.x <= -69) {
                 float width = t.GetComponent<MeshFilter>().mesh.bounds.extents.x;
@@ -42,8 +69,16 @@ public class parcon : MonoBehaviour {
         }
     }
 
+    void SieniMovement() {
+        foreach(GameObject s in sienet) {
+            s.transform.position -= Vector3.left*sieniKerroin;
+        }
+    }
+
     void VesiMovement() {
-        vesi.transform.position -= Vector3.left*vesiMovementKerroin;
+        foreach(GameObject v in vedet) {
+            v.transform.position -= Vector3.left*vesiMovementKerroin;
+        }
     }
     
     void TaustaMovement() {
