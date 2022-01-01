@@ -5,6 +5,7 @@ using UnityEngine;
 public class roska_gen : MonoBehaviour{
 
     GameObject[] roskat;
+    GameObject[] isotRoskat;
     float timer = 0f;
     [SerializeField]
     int spawnRate = 5; // amount of trash per sec
@@ -13,17 +14,19 @@ public class roska_gen : MonoBehaviour{
     float syvin = 25f;
     [SerializeField]
     float matalin = 5f;
+    [SerializeField] float rengasCd = 20f;
+    float isotimer = 0f;
 
-    // Start is called before the first frame update
     void Start() {
         roskat = Resources.LoadAll<GameObject>("RoskaKansio");
-        print(roskat.Length);
+        print("roskien määrä kansiossa: "+roskat.Length);
+        isotRoskat = Resources.LoadAll<GameObject>("IsotRoskat");
     }
 
-    // Update is called once per frame
     void Update() {
         spawnCd = 1/spawnRate;
         SpawnTrash();
+        SpawnBigTrash();
     }
 
     void SpawnTrash() {
@@ -34,11 +37,25 @@ public class roska_gen : MonoBehaviour{
         }
     }
 
+    void SpawnBigTrash() {
+        isotimer += Time.deltaTime;
+        if(isotimer > rengasCd) {
+            isotimer = 0f;
+            int ri = Random.Range(0,isotRoskat.Length);
+            GameObject hot_garbo = isotRoskat[ri];
+            float newy = Random.Range(syvin, matalin);
+            Vector3 pos = new Vector3(transform.position.x, newy, transform.position.z);
+            Quaternion kakka = new Quaternion(Random.Range(-180,180),Random.Range(-180,180),Random.Range(-180,180),Random.Range(-180,180));
+            var new_garbo = Instantiate(hot_garbo, pos, kakka);
+        }
+    }
+
     void InstantiateTrash() {
         int ri = Random.Range(0,roskat.Length);
         GameObject hot_garbo = roskat[ri];
         float newy = Random.Range(syvin, matalin);
         Vector3 pos = new Vector3(transform.position.x, newy, transform.position.z);
-        var new_garbo = Instantiate(hot_garbo, pos, Quaternion.identity);
+        Quaternion kakka = new Quaternion(Random.Range(-180,180),Random.Range(-180,180),Random.Range(-180,180),Random.Range(-180,180));
+        var new_garbo = Instantiate(hot_garbo, pos, kakka);
     }
 }

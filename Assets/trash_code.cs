@@ -7,23 +7,33 @@ public class trash_code : MonoBehaviour {
     Rigidbody rb; 
     [SerializeField]
     float swimSpeed=1;
+    bool asHaul = false;
 
-    void Start() {
+    void Awake() {
         rb = GetComponent<Rigidbody>();
+        GetComponent<throwable>().enabled = false;
     }
 
-    void Update() {
+    void Start() {
+        
+    }
+
+    void FixedUpdate() {
         Swim();
     }
 
     void Swim() {
-        transform.position += new Vector3(-swimSpeed,0,0);
+        if(!asHaul) {
+            transform.position += new Vector3(-swimSpeed,0,0);
+        }
+        
     }
 
     void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "koukku") {
             Koukku_script scp = other.gameObject.GetComponent<Koukku_script>();
             if(!scp.hasHaul) {
+                asHaul = true;
                 scp.hasHaul = true;
                 scp.haul = gameObject;
                 scp.returning = true;
