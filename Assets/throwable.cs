@@ -10,7 +10,7 @@ public class throwable : MonoBehaviour {
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
-        volume = VolumeOfMesh(GetComponent<MeshFilter>().mesh);
+        volume = VolumeOfMesh(GetComponentInChildren<MeshFilter>().mesh);
     }
 
     float VolumeOfMesh(Mesh mesh) {
@@ -48,6 +48,8 @@ public class throwable : MonoBehaviour {
                 rb = GetComponent<Rigidbody>();
                 Destroy(rb);
                 gameObject.tag = "ship";
+                print(gameObject.name);
+                transform.GetChild(0).gameObject.tag = "ship";
                 gameObject.transform.parent = col.transform.parent;
             }
         }

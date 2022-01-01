@@ -13,7 +13,6 @@ public class ship_parts_destroyer : MonoBehaviour {
     }
 
     void OnTriggerExit(Collider col) {
-        print(col.gameObject.name);
         if(col.gameObject.tag == "ship") {
             Destroy(col.gameObject);
         }

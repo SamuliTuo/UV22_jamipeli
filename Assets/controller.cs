@@ -6,15 +6,25 @@ using UnityEngine;
 public class controller : MonoBehaviour {
 
     Rigidbody rb;
-    [SerializeField] float speed = 1;
-    [SerializeField] float jumpSpeed = 1;
-    [SerializeField] float maxSpeed = 1;
+    [SerializeField]
+    float speed = 1;
+    [SerializeField]
+    float jumpSpeed = 1;
+    [SerializeField]
+    float throwForce = 5;
     bool iJustJumped = false;
     bool grounded = true;
     float groundslope = 0f;
     Onkiminen onki;
     public GameObject koukku;
-    [SerializeField] float dragValue = 0.00000001f;
+    public GameObject ThrowableDebug;
+    [SerializeField]
+    float dragValue = 0.00000001f;
+    string facing = "left";
+    public bool carryingThrowableThing = false;
+    public GameObject throwableTrash;
+
+    float throwDebugCd = 0f;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -22,9 +32,8 @@ public class controller : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void Update() {
         KeyboardInputs();
-        CapVelocity();
         GroundCheck(groundslope);
     }
 
@@ -36,23 +45,24 @@ public class controller : MonoBehaviour {
     }
 
     void KeyboardInputs() {
-        Animationsmockup();
         bool noInput = true;
-        if(Input.GetKey(KeyCode.E)) {
+        if(Input.GetKey(KeyCode.E) && !carryingThrowableThing) {
             Ongi();
             return; //laita vielä joku stoppi tähän
         }
+        ThrowingDebug();
+        ThrowActual();
         if(Input.GetKey(KeyCode.A)) {
-            rb.AddForce(Vector3.left * speed, ForceMode.VelocityChange);
+            rb.AddForce(Vector3.right*-speed, ForceMode.Impulse);
             noInput = false;
-            OravaAnimations.current.RotatePlayer(Vector3.left);
+            facing = "left";
         }
         if(Input.GetKey(KeyCode.D)) {
-            rb.AddForce(Vector3.right * speed, ForceMode.VelocityChange);
+            rb.AddForce(Vector3.left*-speed, ForceMode.Impulse);
             noInput = false;
-            OravaAnimations.current.RotatePlayer(Vector3.right);
+            facing = "right";
         }
-        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
+        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) 
             && grounded && !iJustJumped) {
             Jump();
             noInput = false;
@@ -60,18 +70,41 @@ public class controller : MonoBehaviour {
         if(noInput) {
             CustomDrag();
         }
-
+        
+    }
+    
+    void ThrowActual() {
+        if(carryingThrowableThing && Input.GetKeyDown(KeyCode.R)) {
+            carryingThrowableThing = false;
+            //Rigidbody ttrb = throwableTrash.GetComponent<Rigidbody>();
+            //ttrb.useGravity = true;
+            throwableTrash.GetComponent<throwable>().inAir = true;
+            Rigidbody ttrb= throwableTrash.AddComponent<Rigidbody>();
+            Destroy(throwableTrash.GetComponent<trash_code>());
+            if(facing == "left") {
+                ttrb.AddForce(Vector3.left*throwForce, ForceMode.Impulse);
+                //add torque kääntää
+            } else {
+                ttrb.AddForce(Vector3.right*throwForce, ForceMode.Impulse);
+            }
+        }
     }
 
-    void CapVelocity() {
-        Vector3 currvel = rb.velocity;
-        if (currvel.x > maxSpeed) {
-            currvel.x = maxSpeed;
-        }
-        if (currvel.x < (-maxSpeed)) {
-            currvel.x = -maxSpeed;
-        }
-        rb.velocity = currvel;
+    void ThrowingDebug() {
+        throwDebugCd += Time.deltaTime;
+        if(throwDebugCd > 1f && Input.GetKeyDown(KeyCode.G)) {
+            Vector3 pos = transform.position;
+            pos.y +=3f;
+            var thr = Instantiate(ThrowableDebug, pos, Quaternion.identity);
+            Rigidbody rbod = thr.GetComponent<throwable>().GetRb();
+            thr.GetComponent<throwable>().inAir = true;
+            if(facing == "left") {
+                rbod.AddForce(Vector3.left*throwForce, ForceMode.Impulse);
+            } else {
+                rbod.AddForce(Vector3.right*throwForce, ForceMode.Impulse);
+            }
+            throwDebugCd = 0f;
+        } 
     }
 
     IEnumerator IJustJumpedOhNo() {
@@ -100,7 +133,7 @@ public class controller : MonoBehaviour {
             Vector3 pos = gameObject.transform.position;
             GameObject kouk = Instantiate(koukku, pos, Quaternion.identity);
             kouk.transform.parent = this.transform;
-        }
+        } 
     }
 
     bool KoukkuActive() {
@@ -120,25 +153,5 @@ public class controller : MonoBehaviour {
             }
         }
     }
-
-    void Animationsmockup() {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            OravaAnimations.current.PlayCarry();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            OravaAnimations.current.PlayDeath();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            OravaAnimations.current.PlayFishing();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) {
-            OravaAnimations.current.PlayIdle();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5)) {
-            OravaAnimations.current.PlayJump();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6)) {
-            OravaAnimations.current.PlayWalk();
-        }
-    }
+    
 }
