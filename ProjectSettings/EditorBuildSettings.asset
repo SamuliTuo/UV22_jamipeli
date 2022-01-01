@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/menu_scene.unity
     guid: d78bddbb7d345ca4b9c1dcd0062f07b3
   - enabled: 1
-    path: Assets/Scenes/se_skene.unity
-    guid: ce5362c282148104db80462303e6f5a3
+    path: Assets/Scenes/se_skene_smpo.unity
+    guid: 86e543afe9a0a524fb2b2086ef85b2a4
   m_configObjects: {}

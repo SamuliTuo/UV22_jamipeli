@@ -40,6 +40,7 @@ public class roska_gen : MonoBehaviour{
     void SpawnBigTrash() {
         isotimer += Time.deltaTime;
         if(isotimer > rengasCd) {
+            SoundsManager.current.AddIntensity(10);
             isotimer = 0f;
             int ri = Random.Range(0,isotRoskat.Length);
             GameObject hot_garbo = isotRoskat[ri];

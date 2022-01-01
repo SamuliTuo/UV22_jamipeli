@@ -28,4 +28,14 @@ public class SoundsManager : MonoBehaviour {
     public void FromMenuToGameTransition() {
         bgm.setParameterByName("Intensiteetti", 10, true);
     }
+
+    public void SetIntensity(float amount) {
+        bgm.setParameterByName("Intensiteetti", amount);
+    }
+    public void AddIntensity(float amount) {
+        float v;
+        bgm.getParameterByName("Intensiteetti", out v);
+        v += amount;
+        bgm.setParameterByName("Intensiteetti", v);
+    }
 }

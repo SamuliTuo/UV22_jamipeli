@@ -17,7 +17,7 @@ public class MainMenuController : MonoBehaviour {
         cam = Camera.main.transform;
         cam.position = originalCamPos;
         cam.rotation = originalRot;
-
+        SoundsManager.current.SetIntensity(0);
     }
     void Update() {
         if (goingToNewGame) {
