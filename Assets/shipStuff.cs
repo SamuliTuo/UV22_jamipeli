@@ -5,7 +5,7 @@ using UnityEngine;
 public class shipStuff : MonoBehaviour {
     
     float totalVol = 0f;
-    float dropSpeed = 0.004f;
+    float dropSpeed = 0.003f;
 
     // Update is called once per frame
     void Update() {
