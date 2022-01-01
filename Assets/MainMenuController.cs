@@ -5,21 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour {
 
-    [SerializeField] float magicFloat = 0;
+    [SerializeField] private float magicFloat = 0;
+    Vector3 originalCamPos = new Vector3(9.10000038f, 23.7999992f, -128.199997f);
+    Quaternion originalRot = new Quaternion(0.0610885508f, 0.69889015f, -0.0620516539f, 0.709908724f);
 
     float t = 0;
     Transform cam;
-    bool gameStarted = false;
+    bool goingToNewGame = false;
 
     void Start() {
         cam = Camera.main.transform;
+        cam.position = originalCamPos;
+        cam.rotation = originalRot;
+
     }
     void Update() {
-        if (gameStarted) {
+        if (goingToNewGame) {
             LerpTheFloat();
-
-            cam.position += (cam.up * Time.deltaTime * 1.2f + cam.forward * Time.deltaTime * 4) * magicFloat;
-            cam.Rotate(cam.forward, 0.09f * magicFloat);
+            FlyMeToTheLoo();
         }
     }
 
@@ -29,10 +32,14 @@ public class MainMenuController : MonoBehaviour {
     }
 
     public void NewGame() {
-        gameStarted = true;
+        goingToNewGame = true;
         t = 0;
         StartCoroutine(ChangeScene());
         SoundsManager.current.FromMenuToGameTransition();
+    }
+    public void PlayerDiedAndCameBackToMenu() {
+        cam.position = originalCamPos;
+        cam.rotation = originalRot;
     }
 
     public void Options() {
@@ -50,6 +57,12 @@ public class MainMenuController : MonoBehaviour {
 
     IEnumerator ChangeScene() {
         yield return new WaitForSeconds(2.6f);
+        goingToNewGame = false;
         SceneManager.LoadScene(1);
+    }
+
+    void FlyMeToTheLoo() {
+        cam.position += (cam.up * Time.deltaTime * 1.2f + cam.forward * Time.deltaTime * 4) * magicFloat;
+        cam.Rotate(cam.forward, Time.deltaTime * 10 * magicFloat);
     }
 }
