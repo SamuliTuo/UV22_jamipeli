@@ -86,7 +86,7 @@ MonoBehaviour:
   - {fileID: 4436215852197471691}
   StringsBanks:
   - {fileID: 893192197865747641}
-  stringsBankWriteTime: 637766407005173685
+  stringsBankWriteTime: 637766438140699436
   cacheVersion: 6
 --- !u!114 &893192197865747641
 MonoBehaviour:
