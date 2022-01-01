@@ -660,8 +660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af0d6ba67a20044e9e0f9e7b9c6a75f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 2
   jumpSpeed: 10
+  maxSpeed: 20
   koukku: {fileID: 6022923890414216764, guid: 3b989c0bfee8a654d9662eb78a3128f7, type: 3}
   dragValue: 0.00000001
 --- !u!136 &1184034649
