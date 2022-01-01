@@ -8,6 +8,7 @@ public class controller : MonoBehaviour {
     Rigidbody rb;
     [SerializeField] float speed = 1;
     [SerializeField] float jumpSpeed = 1;
+    [SerializeField] float maxSpeed = 1;
     bool iJustJumped = false;
     bool grounded = true;
     float groundslope = 0f;
@@ -23,6 +24,7 @@ public class controller : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         KeyboardInputs();
+        CapVelocity();
         GroundCheck(groundslope);
     }
 
@@ -41,12 +43,12 @@ public class controller : MonoBehaviour {
             return; //laita vielä joku stoppi tähän
         }
         if(Input.GetKey(KeyCode.A)) {
-            rb.AddForce(Vector3.left * speed, ForceMode.Impulse);
+            rb.AddForce(Vector3.left * speed, ForceMode.VelocityChange);
             noInput = false;
             OravaAnimations.current.RotatePlayer(Vector3.left);
         }
         if(Input.GetKey(KeyCode.D)) {
-            rb.AddForce(Vector3.right * speed, ForceMode.Impulse);
+            rb.AddForce(Vector3.right * speed, ForceMode.VelocityChange);
             noInput = false;
             OravaAnimations.current.RotatePlayer(Vector3.right);
         }
@@ -59,6 +61,17 @@ public class controller : MonoBehaviour {
             CustomDrag();
         }
 
+    }
+
+    void CapVelocity() {
+        Vector3 currvel = rb.velocity;
+        if (currvel.x > maxSpeed) {
+            currvel.x = maxSpeed;
+        }
+        if (currvel.x < (-maxSpeed)) {
+            currvel.x = -maxSpeed;
+        }
+        rb.velocity = currvel;
     }
 
     IEnumerator IJustJumpedOhNo() {
