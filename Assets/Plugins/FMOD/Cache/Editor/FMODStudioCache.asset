@@ -54,8 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/MENU
   guid: af4d73be74ee044f9f3542cea065548c
-  Banks:
-  - {fileID: 4436215852197471691}
+  Banks: []
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -80,13 +79,15 @@ MonoBehaviour:
   - {fileID: 893192197865747641}
   - {fileID: 4436215852197471691}
   EditorEvents:
-  - {fileID: -1645052469876619590}
+  - {fileID: 1887469868624053614}
+  - {fileID: 6972886680975644391}
+  - {fileID: 6465191506629749369}
   EditorParameters: []
   MasterBanks:
   - {fileID: 4436215852197471691}
   StringsBanks:
   - {fileID: 893192197865747641}
-  stringsBankWriteTime: 637766407005173685
+  stringsBankWriteTime: 637766565508877847
   cacheVersion: 6
 --- !u!114 &893192197865747641
 MonoBehaviour:
@@ -103,12 +104,36 @@ MonoBehaviour:
   Path: FMOD/Build/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637766407005173685
+  lastModified: 637766565508877847
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 796
+    Value: 882
   Exists: 1
+--- !u!114 &1887469868624053614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PELI
+  m_EditorClassIdentifier: 
+  Path: event:/PELI
+  guid: af4d73be74ee044f9f3542cea065548c
+  Banks:
+  - {fileID: 4436215852197471691}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 6506487655696389740}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 431802
 --- !u!114 &2628066805030640623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +192,73 @@ MonoBehaviour:
   Path: FMOD/Build/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637766407005133803
+  lastModified: 637766565508837964
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &6465191506629749369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Kelaus
+  m_EditorClassIdentifier: 
+  Path: event:/Kelaus
+  guid: fa4206422ed01e429668cfa8f23f1968
+  Banks:
+  - {fileID: 4436215852197471691}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &6506487655696389740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PELI/Intensiteetti
+  m_EditorClassIdentifier: 
+  Name: Intensiteetti
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
+--- !u!114 &6972886680975644391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Heitto
+  m_EditorClassIdentifier: 
+  Path: event:/Heitto
+  guid: c01bd5097984df48ab8c006fdfe467bd
+  Banks:
+  - {fileID: 4436215852197471691}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0

@@ -67,6 +67,7 @@ public class Koukku_script : MonoBehaviour {
                     pos.y += 3f;
                     haul.transform.position = pos;
                 }
+                //GetComponentInParent<controller>().OnkiPois();
                 Destroy(gameObject);
             }
         }

@@ -14,10 +14,6 @@ public class trash_code : MonoBehaviour {
         GetComponent<throwable>().enabled = false;
     }
 
-    void Start() {
-        
-    }
-
     void FixedUpdate() {
         Swim();
     }
@@ -26,7 +22,6 @@ public class trash_code : MonoBehaviour {
         if(!asHaul) {
             transform.position += new Vector3(-swimSpeed,0,0);
         }
-        
     }
 
     void OnTriggerEnter(Collider other) {
@@ -38,8 +33,8 @@ public class trash_code : MonoBehaviour {
                 scp.haul = gameObject;
                 scp.returning = true;
                 transform.parent = other.transform;
+                SoundsManager.current.Kelaus();
             }
-            
         }
     }
 }

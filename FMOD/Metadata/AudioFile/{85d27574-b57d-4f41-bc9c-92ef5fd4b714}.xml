@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{85d27574-b57d-4f41-bc9c-92ef5fd4b714}">
+		<property name="assetPath">
+			<value>Kelaus 6.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>6.729002267573696</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c40b98-fab8-4340-9e07-91428b0e2872}</destination>
+		</relationship>
+	</object>
+</objects>

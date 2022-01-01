@@ -24,12 +24,14 @@ public class controller : MonoBehaviour {
     public bool carryingThrowableThing = false;
     public GameObject throwableTrash;
     Transform model;
+    //Animator onkiAnim;
 
     float throwDebugCd = 0f;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
         onki = GetComponent<Onkiminen>();
+        //onkiAnim = transform.GetChild(0).GetChild(2).GetComponent<Animator>();
         model = transform.GetChild(0);
     }
 
@@ -147,6 +149,7 @@ public class controller : MonoBehaviour {
             Vector3 pos = gameObject.transform.position;
             GameObject kouk = Instantiate(koukku, pos, Quaternion.identity);
             kouk.transform.parent = this.transform;
+            SoundsManager.current.Heitto();
         } 
     }
 
@@ -168,4 +171,7 @@ public class controller : MonoBehaviour {
         }
     }
     
+    public void OnkiPois() {
+        //onkiAnim.Play("onkipois", 0);
+    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{8875e96f-5ccc-42d8-9059-ba5464a2e551}">
+		<property name="assetPath">
+			<value>Pelitilanne 1 120BPM - Kuplat mid.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>69</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c40b98-fab8-4340-9e07-91428b0e2872}</destination>
+		</relationship>
+	</object>
+</objects>
