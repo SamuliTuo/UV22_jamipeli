@@ -16,6 +16,7 @@ public class SoundsManager : MonoBehaviour {
     }
 
     private void Update() {
+
     }
 
     public void FromMenuToGameTransition() {
