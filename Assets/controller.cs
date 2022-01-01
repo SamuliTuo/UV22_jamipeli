@@ -23,12 +23,14 @@ public class controller : MonoBehaviour {
     string facing = "left";
     public bool carryingThrowableThing = false;
     public GameObject throwableTrash;
+    Transform model;
 
     float throwDebugCd = 0f;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
         onki = GetComponent<Onkiminen>();
+        model = transform.GetChild(0);
     }
 
     // Update is called once per frame
@@ -55,19 +57,31 @@ public class controller : MonoBehaviour {
         if(Input.GetKey(KeyCode.A)) {
             rb.AddForce(Vector3.right*-speed, ForceMode.Impulse);
             noInput = false;
+            model.LookAt(model.position + Vector3.left);
+            if (grounded && !iJustJumped) {
+                OravaAnimations.current.PlayWalk();
+            }
             facing = "left";
         }
         if(Input.GetKey(KeyCode.D)) {
             rb.AddForce(Vector3.left*-speed, ForceMode.Impulse);
             noInput = false;
+            model.LookAt(model.position + Vector3.right);
+            if (grounded && !iJustJumped) {
+                OravaAnimations.current.PlayWalk();
+            }
             facing = "right";
         }
         if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) 
             && grounded && !iJustJumped) {
             Jump();
+            OravaAnimations.current.PlayJump();
             noInput = false;
         }
         if(noInput) {
+            if (grounded && !iJustJumped) {
+                OravaAnimations.current.PlayIdle();
+            }
             CustomDrag();
         }
         

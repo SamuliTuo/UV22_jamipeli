@@ -16,11 +16,31 @@ public class OravaAnimations : MonoBehaviour {
         transform.LookAt(transform.position + dir);
     }
 
-    public void PlayWalk() { anim.Play("walk", 0); }
-    public void PlayJump() { anim.Play("jump", 0); }
-    public void PlayIdle() { anim.Play("idle", 0); }
-    public void PlayFishing() { anim.Play("fishing", 0); }
-    public void PlayCarry() { anim.Play("carry", 0); }
+    public void PlayWalk() {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("walk")) {
+            anim.Play("walk", 0);
+        }
+    }
+    public void PlayJump() {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("jump")) {
+            anim.Play("jump", 0);
+        }
+    }
+    public void PlayIdle() {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("idle")) {
+            anim.Play("idle", 0);
+        }
+    }
+    public void PlayFishing() {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("fishing")) {
+            anim.Play("fishing", 0);
+        }
+    }
+    public void PlayCarry() {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("carry")) {
+            anim.Play("carry", 0);
+        }
+    }
     public void PlayDeath() { anim.Play("death", 0); }
 
 }
